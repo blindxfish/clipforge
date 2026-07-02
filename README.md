@@ -14,7 +14,7 @@
 ![Local-first](https://img.shields.io/badge/local--first-yes-2ECC71)
 ![No cloud](https://img.shields.io/badge/cloud-none-E23B3B)
 ![No AI](https://img.shields.io/badge/AI-none-E23B3B)
-![Release](https://img.shields.io/badge/release-v1.1.1-E23B3B)
+![Release](https://img.shields.io/badge/release-v1.1.2-E23B3B)
 
 </div>
 
@@ -63,8 +63,8 @@ Grab the latest build from the [**Releases**](https://github.com/blindxfish/clip
 
 | Download | What it is |
 |---|---|
-| **`ClipKeep-Setup-1.1.1-x64.exe`** | Standard installer (x64) — Start Menu shortcut, uninstaller, per-user (no admin needed) |
-| **`ClipKeep-1.1.1-x64-portable.exe`** | Portable single file — no install, just run it |
+| **`ClipKeep-Setup-1.1.2-x64.exe`** | Standard installer (x64) — Start Menu shortcut, uninstaller, per-user (no admin needed) |
+| **`ClipKeep-1.1.2-x64-portable.exe`** | Portable single file — no install, just run it |
 
 > Also available for **ARM64** and **x86** (`-arm64` / `-x86` in the file name), with SHA-256 checksums. ClipKeep is also coming to the **Microsoft Store**.
 

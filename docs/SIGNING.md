@@ -60,8 +60,8 @@ certificate expires. Requires the Windows 10/11 SDK (`signtool.exe`) for the
 
 ## Verifying a build
 ```powershell
-signtool verify /pa /v dist\release\ClipKeep-Setup-1.1.1-x64.exe
-Get-FileHash dist\release\ClipKeep-Setup-1.1.1-x64.exe -Algorithm SHA256
+signtool verify /pa /v dist\release\ClipKeep-Setup-1.1.2-x64.exe
+Get-FileHash dist\release\ClipKeep-Setup-1.1.2-x64.exe -Algorithm SHA256
 ```
 `build-all.ps1` also emits `dist/release/SHA256SUMS.txt` for download verification.
 

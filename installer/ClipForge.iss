@@ -8,7 +8,7 @@
 ; Output: installer\ClipForge-Setup-<version>-<arch>.exe
 
 #define MyAppName "ClipKeep"
-#define MyAppVersion "1.1.1"
+#define MyAppVersion "1.1.2"
 #define MyAppPublisher "Nixon Software Solutions"
 #define MyAppUrl "https://nixonsolutions.org/"
 ; The published executable keeps its original file name; only the product brand changed.

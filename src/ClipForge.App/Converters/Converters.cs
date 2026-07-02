@@ -57,6 +57,26 @@ public sealed class EmptyStringToVisibilityConverter : IValueConverter
         throw new NotSupportedException();
 }
 
+/// <summary>Positive count → true (e.g. enable a button), 0/other → false.</summary>
+public sealed class CountToBooleanConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is int n && n > 0;
+
+    public object ConvertBack(object value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
+/// <summary>ClipType.Image → Visible, anything else → Collapsed.</summary>
+public sealed class ImageTypeToVisibilityConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is ClipType.Image ? Visibility.Visible : Visibility.Collapsed;
+
+    public object ConvertBack(object value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}
+
 /// <summary>DateTimeOffset → local short date + time string (e.g. "7/2/2026 2:35 PM").</summary>
 public sealed class LocalDateTimeConverter : IValueConverter
 {

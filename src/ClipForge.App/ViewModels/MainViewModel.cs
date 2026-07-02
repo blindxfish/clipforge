@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.IO;
-using System.Windows.Media.Imaging;
 using ClipForge.App.Clipboard;
 using ClipForge.App.Services;
 using ClipForge.App.Storage;
@@ -62,6 +64,10 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     /// <summary>Number of entries currently shown (drives the "N clips" header).</summary>
     [ObservableProperty]
     private int _visibleCount;
+
+    /// <summary>How many entries are selected (for the multiselect toolbar).</summary>
+    [ObservableProperty]
+    private int _selectedCount;
 
     /// <summary>Inclusive start of the date filter (day granularity); null = unbounded.</summary>
     [ObservableProperty]
@@ -171,14 +177,69 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         var image = _repository.GetImage(entry.Id);
         if (image is null || !File.Exists(image.FilePath)) return;
 
-        var bitmap = new BitmapImage();
-        bitmap.BeginInit();
-        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-        bitmap.UriSource = new Uri(image.FilePath);
-        bitmap.EndInit();
-
+        // Rich multi-format data object (file + PNG + bitmap) so the image pastes
+        // reliably everywhere, with retries in case the clipboard is momentarily locked.
+        var data = ClipboardImageHelper.BuildImageData(new[] { image.FilePath });
         _coordinator.SuppressNextChange();
-        WpfClipboard.SetImage(bitmap);
+        ClipboardImageHelper.TrySetClipboard(data);
+    }
+
+    /// <summary>Open an image clip in the system default viewer.</summary>
+    [RelayCommand]
+    private void Open(ClipEntry? entry)
+    {
+        entry ??= SelectedEntry;
+        if (entry is null || entry.Type != ClipType.Image) return;
+        if (_repository.GetImage(entry.Id) is { } image && File.Exists(image.FilePath))
+            Process.Start(new ProcessStartInfo(image.FilePath) { UseShellExecute = true });
+    }
+
+    /// <summary>Delete a set of entries (multiselect), confirming once for the batch.</summary>
+    public void DeleteEntries(IReadOnlyList<ClipEntry> entries)
+    {
+        if (entries.Count == 0) return;
+
+        if (_settings.Current.ConfirmBeforeDelete &&
+            !_dialogs.Confirm($"Delete {entries.Count} clip(s)?", "ClipKeep"))
+            return;
+
+        foreach (var entry in entries.ToList())
+        {
+            if (entry.Type == ClipType.Image && _repository.GetImage(entry.Id) is { } image)
+                _imageStore.DeleteFiles(image);
+            _repository.Delete(entry.Id);
+            Entries.Remove(entry);
+        }
+        VisibleCount = Entries.Count;
+        UpdateCounts();
+    }
+
+    /// <summary>
+    /// Build a drag payload for the given entries: image files (file drop) when any
+    /// are images, otherwise the joined text. Null if there's nothing draggable.
+    /// </summary>
+    public DataObject? BuildDragData(IReadOnlyList<ClipEntry> entries)
+    {
+        var imagePaths = new List<string>();
+        var texts = new List<string>();
+        foreach (var entry in entries)
+        {
+            if (entry.Type == ClipType.Image && _repository.GetImage(entry.Id) is { } image &&
+                File.Exists(image.FilePath))
+                imagePaths.Add(image.FilePath);
+            else if (entry.Content is { } content)
+                texts.Add(content);
+        }
+
+        if (imagePaths.Count > 0)
+            return ClipboardImageHelper.BuildImageData(imagePaths);
+        if (texts.Count > 0)
+        {
+            var data = new DataObject();
+            data.SetText(string.Join(Environment.NewLine, texts));
+            return data;
+        }
+        return null;
     }
 
     [RelayCommand]

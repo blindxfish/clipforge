@@ -22,7 +22,7 @@
   powershell -ExecutionPolicy Bypass -File tools\build-msix.ps1
 #>
 param(
-  [string]$Version = "1.1.1",
+  [string]$Version = "1.1.2",
   [string[]]$Arch  = @("x64","x86","arm64")
 )
 

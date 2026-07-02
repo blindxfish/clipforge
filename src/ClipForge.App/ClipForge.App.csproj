@@ -26,9 +26,9 @@
     <Product>ClipKeep</Product>
     <Company>Nixon Software Solutions</Company>
     <Authors>Nixon Software Solutions</Authors>
-    <Version>1.1.1</Version>
-    <FileVersion>1.1.1.0</FileVersion>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <Version>1.1.2</Version>
+    <FileVersion>1.1.2.0</FileVersion>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
     <Copyright>Copyright © 2026 Nixon Software Solutions</Copyright>
     <Description>Local-first Windows clipboard manager.</Description>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>

@@ -155,6 +155,33 @@
             </Setter>
         </Style>
 
+        <!-- Subtle text button for the list toolbar (Select all / Delete) -->
+        <Style x:Key="ToolLink" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="8,3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bg" Background="Transparent" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="#1F1F25"/>
+                                <Setter Property="Foreground" Value="{StaticResource Fg}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
 
     <Grid>
@@ -293,14 +320,28 @@
                     <TextBlock VerticalAlignment="Center" Foreground="{StaticResource Muted}" FontSize="13">
                         <Run Text="{Binding VisibleCount, Mode=OneWay}"/><Run Text=" clips"/>
                     </TextBlock>
-                    <ComboBox HorizontalAlignment="Right" Style="{StaticResource SortCombo}"
-                              ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Content="Select all" Style="{StaticResource ToolLink}" Click="SelectAllButton_Click"/>
+                        <Button Style="{StaticResource ToolLink}" Click="DeleteSelectedButton_Click"
+                                IsEnabled="{Binding SelectedCount, Converter={StaticResource CountToBool}}">
+                            <TextBlock>
+                                <Run Text="Delete"/><Run Text="{Binding SelectedCount, Mode=OneWay, StringFormat=' ({0})'}"/>
+                            </TextBlock>
+                        </Button>
+                        <ComboBox Margin="6,0,0,0" Style="{StaticResource SortCombo}"
+                                  ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}"/>
+                    </StackPanel>
                 </Grid>
                 <ListBox x:Name="EntriesList"
                          ItemsSource="{Binding Entries}" SelectedItem="{Binding SelectedEntry}"
+                         SelectionMode="Extended"
                          Background="Transparent" BorderThickness="0"
                          ItemContainerStyle="{StaticResource ClipCard}"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectionChanged="EntriesList_SelectionChanged"
+                         PreviewMouseLeftButtonDown="EntriesList_PreviewMouseLeftButtonDown"
+                         PreviewMouseMove="EntriesList_PreviewMouseMove"
+                         MouseDoubleClick="EntriesList_MouseDoubleClick">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -360,7 +401,11 @@
                                             Click="MoreButton_Click"
                                             Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}">
                                         <Button.ContextMenu>
-                                            <ContextMenu>
+                                            <ContextMenu Style="{StaticResource DarkContextMenu}">
+                                                <MenuItem Header="Open"
+                                                          Visibility="{Binding Type, Converter={StaticResource ImageTypeToVis}}"
+                                                          Command="{Binding PlacementTarget.Tag.OpenCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                          CommandParameter="{Binding}"/>
                                                 <MenuItem Header="Copy"
                                                           Command="{Binding PlacementTarget.Tag.CopyCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                                           CommandParameter="{Binding}"/>

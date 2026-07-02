@@ -52,8 +52,8 @@ $cert = New-SelfSignedCertificate -Type Custom -Subject "CN=Nixon Software Solut
   -KeyUsage DigitalSignature -CertStoreLocation "Cert:\CurrentUser\My" `
   -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3")
 # trust it (admin), then sign + install:
-signtool sign /fd SHA256 /a /f <exported.pfx> /p <pw> dist\release\ClipKeep-1.1.1-x64.msix
-Add-AppxPackage dist\release\ClipKeep-1.1.1-x64.msix
+signtool sign /fd SHA256 /a /f <exported.pfx> /p <pw> dist\release\ClipKeep-1.1.2-x64.msix
+Add-AppxPackage dist\release\ClipKeep-1.1.2-x64.msix
 ```
 
 ## Known limitation under MSIX — auto-start
