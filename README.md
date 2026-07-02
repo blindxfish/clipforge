@@ -1,26 +1,26 @@
 <div align="center">
 
-<img src="logo.png" alt="ClipForge" width="160" />
+<img src="logo.png" alt="ClipKeep" width="160" />
 
-# ClipForge
+# ClipKeep
 
-### Forge your clipboard into a searchable memory.
+### Keep everything you copy in a searchable memory.
 
 **Never lose anything you copied again.**
 
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D6?logo=windows&logoColor=white)](https://github.com/blindxfish/clipforge)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D6?logo=windows&logoColor=white)](https://github.com/blindxfish/clipkeep)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![WPF](https://img.shields.io/badge/UI-WPF%20%2F%20MVVM-2C3E50)](https://learn.microsoft.com/dotnet/desktop/wpf/)
 ![Local-first](https://img.shields.io/badge/local--first-yes-2ECC71)
 ![No cloud](https://img.shields.io/badge/cloud-none-E23B3B)
 ![No AI](https://img.shields.io/badge/AI-none-E23B3B)
-![Release](https://img.shields.io/badge/release-v1.0.0-E23B3B)
+![Release](https://img.shields.io/badge/release-v1.1.1-E23B3B)
 
 </div>
 
 ---
 
-**ClipForge** is a Windows clipboard manager that stores, organizes, and searches everything you copy — text, links, code, and images. It runs quietly in the system tray and turns your clipboard into a fast, private, searchable archive.
+**ClipKeep** is a Windows clipboard manager that stores, organizes, and searches everything you copy — text, links, code, and images. It runs quietly in the system tray and turns your clipboard into a fast, private, searchable archive.
 
 It is **local-first**, **offline**, **fast**, and **privacy-focused**.
 
@@ -59,12 +59,14 @@ It is **local-first**, **offline**, **fast**, and **privacy-focused**.
 
 ## 📥 Download & Install
 
-Grab the latest build from the [**Releases**](https://github.com/blindxfish/clipforge/releases) page:
+Grab the latest build from the [**Releases**](https://github.com/blindxfish/clipkeep/releases) page:
 
 | Download | What it is |
 |---|---|
-| **`ClipForge-Setup-1.0.0.exe`** | Standard installer — Start Menu shortcut, uninstaller, per-user (no admin needed) |
-| **`ClipForge-1.0.0-portable.exe`** | Portable single file — no install, just run it |
+| **`ClipKeep-Setup-1.1.1-x64.exe`** | Standard installer (x64) — Start Menu shortcut, uninstaller, per-user (no admin needed) |
+| **`ClipKeep-1.1.1-x64-portable.exe`** | Portable single file — no install, just run it |
+
+> Also available for **ARM64** and **x86** (`-arm64` / `-x86` in the file name), with SHA-256 checksums. ClipKeep is also coming to the **Microsoft Store**.
 
 > ℹ️ Both are self-contained — **no .NET runtime required**.
 >
@@ -74,8 +76,8 @@ Grab the latest build from the [**Releases**](https://github.com/blindxfish/clip
 
 ## 🚀 Usage
 
-1. Launch ClipForge — it lives in the **system tray**.
-2. Copy things as you normally would. ClipForge captures them automatically.
+1. Launch ClipKeep — it lives in the **system tray**.
+2. Copy things as you normally would. ClipKeep captures them automatically.
 3. Press **`Ctrl + Shift + V`** anywhere for Quick Paste, or double-click the tray icon to open the main window.
 4. Search, favorite ⭐, or delete clips from the main window.
 
@@ -111,8 +113,8 @@ ClipForge.sln
 
 ```bash
 # Clone
-git clone https://github.com/blindxfish/clipforge.git
-cd clipforge
+git clone https://github.com/blindxfish/clipkeep.git
+cd clipkeep
 
 # Build & test
 dotnet build ClipForge.sln
@@ -146,12 +148,12 @@ ISCC installer/ClipForge.iss
 
 ## 🔐 Privacy
 
-ClipForge is designed to keep your data yours. All clipboard history lives in a local SQLite database and image files under `%AppData%\ClipForge`. Nothing is ever sent anywhere — no cloud sync, no accounts, no telemetry. Sensitive content is filtered before it's ever written to disk.
+ClipKeep is designed to keep your data yours. All clipboard history lives in a local SQLite database and image files under `%AppData%\ClipForge`. Nothing is ever sent anywhere — no cloud sync, no accounts, no telemetry. Sensitive content is filtered before it's ever written to disk.
 
 ---
 
 <div align="center">
 
-**ClipForge** — *Fast like a utility. Organized like a database. Private like an offline tool.*
+**ClipKeep** — *Fast like a utility. Organized like a database. Private like an offline tool.*
 
 </div>

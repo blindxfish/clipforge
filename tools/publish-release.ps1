@@ -15,7 +15,7 @@
 #>
 param(
   [string]$Version = "1.1.1",
-  [string]$Repo    = "blindxfish/clipforge"
+  [string]$Repo    = "blindxfish/clipkeep"
 )
 
 $ErrorActionPreference = "Stop"
