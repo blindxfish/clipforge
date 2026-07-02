@@ -8,7 +8,7 @@
 ; Output: installer\ClipForge-Setup-<version>-<arch>.exe
 
 #define MyAppName "ClipForge"
-#define MyAppVersion "1.1.0"
+#define MyAppVersion "1.1.1"
 #define MyAppPublisher "Nixon Software Solutions"
 #define MyAppUrl "https://nixonsolutions.org/"
 #define MyAppExeName "ClipForge.exe"

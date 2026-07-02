@@ -434,6 +434,8 @@ test-results/
 /dist/
 # Compiled installer binary lives next to its script but shouldn't be committed.
 /installer/*.exe
+# MSIX tile assets are regenerated from logo.png by tools/build-msix.ps1.
+/packaging/msix/Assets/
 
 # content below from: https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
 # General

@@ -14,7 +14,7 @@
   powershell -ExecutionPolicy Bypass -File tools\build-all.ps1
 #>
 param(
-  [string]$Version = "1.1.0"
+  [string]$Version = "1.1.1"
 )
 
 $ErrorActionPreference = "Stop"
